@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        a {
+            color: white;
+        }
+
+        a:hover {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>Students List</h1>
+
+    <table class="table table-bordered" th:if="${not #lists.isEmpty(list)}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>RollNo</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="std : ${list}">
+            <td th:text="${std.id}"></td>
+            <td th:text="${std.rollNo}"></td>
+            <td th:text="${std.name}"></td>
+            <td th:text="${std.gender}"></td>
+            <td>
+                <button type="button" class="btn btn-primary">
+                    <a th:href="@{/editStudent/{id}(id=${std.id})}" th:text="Edit" th:if="${not #lists.isEmpty(list)}"></a>
+                </button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger">
+                    <a th:href="@{/deleteStudent/{id}(id=${std.id})}" th:text="Delete" th:if="${not #lists.isEmpty(list)}"></a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${#lists.isEmpty(list)}">
+        <p>No students found.</p>
+    </div>
+
+    <button type="button" class="btn btn-primary btn-block">
+        <a th:href="@{/addStudent}">Add New Student</a>
+    </button>
+
+</div>
+</body>
+</html>
